@@ -2,24 +2,26 @@ import
   React
   , { useEffect } from 'react';
 
-import { Auth } from 'aws-amplify'
-import Container from './Container'
+import { Auth } from 'aws-amplify';
+import Container from './Container';
 
-function Protected = ({history}) => {
+const Protected = ({history}) => {
 
   useEffect(
-    () => {
-      Auth.currentAuthenticatedUser()
-        .then(
-          () => {
-            console.log("User was authenticated.")
-          }
-        )
-        .catch(
-            () => {
-              props.history.push('/profile')
-            }
-          );
+     () => {
+
+       const checkUser = async () => {
+         try {
+           await Auth.currentAuthenticatedUser();
+           console.log("User was authenticated.");
+         }
+         catch (err) {
+           console.error(err);
+           history.push('/profile');
+         }
+       };
+
+       checkUser();
   }
   , []
 );

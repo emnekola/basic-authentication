@@ -8,6 +8,7 @@ import {
 } from '@ant-design/icons';
 
 const Nav = ({ current }) => {
+  
   return (
     <div>
       <Menu
